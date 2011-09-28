@@ -9,12 +9,12 @@
  **/
 #include "Deuligne.h"
 #include <Wire.h>
+#include "Arduino.h"  //all things wiring / arduino
 
 extern "C" {
   #include <stdio.h>  //not needed yet
   #include <string.h> //needed for strlen()
   #include <inttypes.h>
-  #include "WConstants.h"  //all things wiring / arduino
 }
 
 //command bytes for LCD
@@ -42,8 +42,8 @@ Deuligne::Deuligne( int devI2CAddress, int num_lines, int lcdwidth, int bufferwi
 
 void SetMCPReg( byte deviceAddr, byte reg, byte val ) {
   Wire.beginTransmission(deviceAddr);
-  Wire.send(reg);
-  Wire.send(val);
+  Wire.write(reg);
+  Wire.write(val);
   Wire.endTransmission();
 }
 
@@ -100,7 +100,7 @@ void Deuligne::backLight( bool turnOn ) {
 }
 
 
-void Deuligne::write( uint8_t value ) {
+size_t Deuligne::write( uint8_t value ) {
   dataPlusMask |= 0x40; // RS
   WriteLCDByte(myAddress,(byte)value);
   dataPlusMask ^= 0x40; // RS

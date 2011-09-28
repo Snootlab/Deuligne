@@ -64,7 +64,7 @@ public:
   void commandWrite(int command);
   void init();
   void clear();
-  virtual void write(uint8_t);
+  virtual size_t write(uint8_t);
   //  virtual void print(uint8_t);
   //  virtual void printIn(uint8_t*);
   void backLight( bool turnOn );
