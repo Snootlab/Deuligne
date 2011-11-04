@@ -64,6 +64,7 @@ public:
   void commandWrite(int command);
   void init();
   void clear();
+  void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
   virtual void write(uint8_t);
   //  virtual void print(uint8_t);
   //  virtual void printIn(uint8_t*);
