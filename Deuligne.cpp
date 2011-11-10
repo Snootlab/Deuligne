@@ -116,6 +116,10 @@ void Deuligne::clear() {
   command(CMD_CLR);
 }
 
+void Deuligne::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
+
+}
+
 void Deuligne::setCursor(uint8_t col, uint8_t row) {
   int row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
   if ( row > myNumLines ) {
