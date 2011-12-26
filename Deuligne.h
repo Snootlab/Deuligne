@@ -6,7 +6,7 @@
  *
  */
 #ifndef SNOOTLCDI2C_h
-#define SNOOTLCDI2_h
+#define SNOOTLCDI2C_h
 
 #include <inttypes.h>
 #include <Print.h>
@@ -47,7 +47,7 @@
 #define LCD_4BITMODE 0x00
 #define LCD_2LINE 0x08
 #define LCD_1LINE 0x00
-#define LCD_5x10DOTS 0x04
+#define LCD_5x11DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
 
