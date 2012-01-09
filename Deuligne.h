@@ -8,6 +8,16 @@
 #ifndef SNOOTLCDI2C_h
 #define SNOOTLCDI2C_h
 
+#if defined(ARDUINO) && ARDUINO >= 100
+#define SNOOT_RETURN size_t
+#define SNOOT_WIREWRITE Wire.write
+#else
+#define SNOOT_RETURN void
+#define SNOOT_WIREWRITE Wire.send
+#endif
+
+
+
 #include <inttypes.h>
 #include <Print.h>
 
@@ -65,7 +75,7 @@ public:
   void init();
   void clear();
   void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
-  virtual void write(uint8_t);
+  virtual SNOOT_RETURN write(uint8_t);
   //  virtual void print(uint8_t);
   //  virtual void printIn(uint8_t*);
   void backLight( bool turnOn );

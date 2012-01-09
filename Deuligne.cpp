@@ -14,8 +14,14 @@ extern "C" {
   #include <stdio.h>  //not needed yet
   #include <string.h> //needed for strlen()
   #include <inttypes.h>
+#if defined(ARDUINO) &&ARDUINO < 100
   #include "WConstants.h"  //all things wiring / arduino
+#endif
 }
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#endif
+
 
 //command bytes for LCD
 #define CMD_CLR 0x01
@@ -42,8 +48,8 @@ Deuligne::Deuligne( int devI2CAddress, int num_lines, int lcdwidth, int bufferwi
 
 void SetMCPReg( byte deviceAddr, byte reg, byte val ) {
   Wire.beginTransmission(deviceAddr);
-  Wire.send(reg);
-  Wire.send(val);
+  SNOOT_WIREWRITE(reg);
+  SNOOT_WIREWRITE(val);
   Wire.endTransmission();
 }
 
@@ -100,7 +106,7 @@ void Deuligne::backLight( bool turnOn ) {
 }
 
 
-void Deuligne::write( uint8_t value ) {
+SNOOT_RETURN Deuligne::write( uint8_t value ) {
   dataPlusMask |= 0x40; // RS
   WriteLCDByte(myAddress,(byte)value);
   dataPlusMask ^= 0x40; // RS
