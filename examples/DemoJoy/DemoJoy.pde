@@ -19,9 +19,6 @@ char msgs[5][15] = {
   "Down Key OK  ", 
   "Left Key OK  ", 
   "Select Key OK" };
-int8_t key=-1;
-int8_t oldkey=-1;
-
 
 void setup()
 {
@@ -42,7 +39,8 @@ void setup()
 }
 
 void loop() {
-
+  static int8_t oldkey = -1;
+  int8_t key = -1;
 
   key = lcd.get_key();		        // read the value from the sensor & convert into key press
 
