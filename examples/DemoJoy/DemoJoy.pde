@@ -10,10 +10,10 @@
 #include <Wire.h> // I2C library include
 #include <Deuligne.h> // LCD library include
 
-Deuligne lcd; // lcd object declaration
+static Deuligne lcd; // lcd object declaration
 
 //Key message
-char msgs[5][15] = {
+static const char msgs[5][15] = {
   "Right Key OK ", 
   "Up Key OK    ", 
   "Down Key OK  ", 
