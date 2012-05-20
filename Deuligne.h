@@ -115,7 +115,7 @@ public:
   void autoscroll();
   void noAutoscroll();
 
-  int get_key();
+  int8_t get_key();
 
 private:
   //void pulseEnablePin();

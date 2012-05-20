@@ -242,10 +242,10 @@ void Deuligne::home()
 // 3: Left Key
 // 4: Select Key
 
-int Deuligne::get_key(){
+int8_t Deuligne::get_key(){
   int adc_key_in = analogRead(0);    // read the value from the sensor  
 
-  int k;
+  int8_t k = 0;
 
   //   determine which key is pressed
   for (k = 0; k < NUM_KEYS; k++)

@@ -19,8 +19,8 @@ char msgs[5][15] = {
   "Down Key OK  ", 
   "Left Key OK  ", 
   "Select Key OK" };
-int key=-1;
-int oldkey=-1;
+int8_t key=-1;
+int8_t oldkey=-1;
 
 
 void setup()
