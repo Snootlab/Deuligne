@@ -245,7 +245,7 @@ void Deuligne::home()
 // 4: Select Key
 
 int Deuligne::get_key(){
-  adc_key_in = analogRead(0);    // read the value from the sensor  
+  int adc_key_in = analogRead(0);    // read the value from the sensor  
 
   int k;
 
