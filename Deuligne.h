@@ -127,9 +127,7 @@ private:
   int myWidth;
   int myAddress;
   int myBufferwidth;
-  //  int adc_key_val[5];
 
-  uint8_t _displayfunction;
   uint8_t _displaycontrol;
   uint8_t _displaymode;
 
