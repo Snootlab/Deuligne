@@ -29,6 +29,8 @@ extern "C" {
 #define CMD_LEFT 0x18
 #define CMD_HOME 0x02
 
+#define NUM_KEYS 5
+
 //stuff the library user might call---------------------------------
 
 //constructor.  num_lines must be 1 or 2, currently.
@@ -43,7 +45,6 @@ Deuligne::Deuligne( int devI2CAddress, int num_lines, int lcdwidth, int bufferwi
   myWidth = lcdwidth;
   myAddress = devI2CAddress;
   myBufferwidth= bufferwidth;
-  NUM_KEYS = 5;
 }
 
 void SetMCPReg( byte deviceAddr, byte reg, byte val ) {

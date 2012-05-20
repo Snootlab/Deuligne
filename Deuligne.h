@@ -129,7 +129,6 @@ private:
   int myBufferwidth;
   int adc_key_in;
   //  int adc_key_val[5];
-  int NUM_KEYS;
 
   uint8_t _displayfunction;
   uint8_t _displaycontrol;
