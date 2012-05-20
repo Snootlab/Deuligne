@@ -35,10 +35,9 @@ extern "C" {
 
 //constructor.  num_lines must be 1 or 2, currently.
 
-byte dataPlusMask = 0x20; // TODO!!!
+static byte dataPlusMask = 0x20; // TODO!!!
 
-int   adc_key_val[5] ={
-  50, 190, 400, 540, 770 };
+static const int adc_key_val[5] = { 50, 190, 400, 540, 770 };
 
 Deuligne::Deuligne( int devI2CAddress, int num_lines, int lcdwidth, int bufferwidth)  {
   myNumLines = num_lines;
