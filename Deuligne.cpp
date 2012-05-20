@@ -100,8 +100,7 @@ void Deuligne::init( void ) {
 }
 
 void Deuligne::backLight( bool turnOn ) {
-  dataPlusMask |= 0x80; // Lights mask
-  if (!turnOn) dataPlusMask ^= 0x80;
+  dataPlusMask = (turnOn == true) ? (dataPlusMask | 0x80) : (dataPlusMask ^ 0x80);
   SetMCPReg(myAddress,0x0A,dataPlusMask);  
 }
 
