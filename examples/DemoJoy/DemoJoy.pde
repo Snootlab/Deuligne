@@ -10,7 +10,7 @@
 #include <Wire.h> // I2C library include
 #include <Deuligne.h> // LCD library include
 
-Deuligne lcd; // lcd object declaration
+static Deuligne lcd; // lcd object declaration
 
 //Key message
 static const char msgs[5][15] = {
