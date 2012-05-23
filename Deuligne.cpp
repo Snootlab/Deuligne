@@ -37,7 +37,7 @@ extern "C" {
 
 static byte dataPlusMask = 0x20; // TODO!!!
 
-static const int adc_key_val[5] = { 50, 190, 400, 540, 770 };
+static const int adc_key_val[NUM_KEYS] = { 50, 190, 400, 540, 770 };
 
 Deuligne::Deuligne( uint8_t devI2CAddress, uint8_t num_lines, uint8_t lcdwidth, uint8_t bufferwidth)  {
   myNumLines = num_lines;
