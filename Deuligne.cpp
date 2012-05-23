@@ -23,21 +23,21 @@ extern "C" {
 #define CMD_LEFT 0x18
 #define CMD_HOME 0x02
 
+#define NUM_KEYS 5
+
 //stuff the library user might call---------------------------------
 
 //constructor.  num_lines must be 1 or 2, currently.
 
-byte dataPlusMask = 0x20; // TODO!!!
+static byte dataPlusMask = 0x20; // TODO!!!
 
-int   adc_key_val[5] ={
-  50, 190, 400, 540, 770 };
+static const int adc_key_val[NUM_KEYS] = { 50, 190, 400, 540, 770 };
 
-Deuligne::Deuligne( int devI2CAddress, int num_lines, int lcdwidth, int bufferwidth)  {
+Deuligne::Deuligne( uint8_t devI2CAddress, uint8_t num_lines, uint8_t lcdwidth, uint8_t bufferwidth)  {
   myNumLines = num_lines;
   myWidth = lcdwidth;
   myAddress = devI2CAddress;
   myBufferwidth= bufferwidth;
-  NUM_KEYS = 5;
 }
 
 void SetMCPReg( byte deviceAddr, byte reg, byte val ) {
@@ -94,8 +94,7 @@ void Deuligne::init( void ) {
 }
 
 void Deuligne::backLight( bool turnOn ) {
-  dataPlusMask |= 0x80; // Lights mask
-  if (!turnOn) dataPlusMask ^= 0x80;
+  dataPlusMask = (turnOn == true) ? (dataPlusMask | 0x80) : (dataPlusMask ^ 0x80);
   SetMCPReg(myAddress,0x0A,dataPlusMask);  
 }
 
@@ -121,7 +120,7 @@ void Deuligne::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
 }
 
 void Deuligne::setCursor(uint8_t col, uint8_t row) {
-  int row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
+  uint8_t row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
   if ( row > myNumLines ) {
     row = myNumLines-1;    // we count rows starting w/0
   }
@@ -153,7 +152,7 @@ void Deuligne::command( uint8_t command ) {
 void Deuligne::createChar(uint8_t location, uint8_t charmap[]) {
   location &= 0x7; // we only have 8 locations 0-7
   command(LCD_SETCGRAMADDR | (location << 3));
-  for (int i=0; i<8; i++) {
+  for (uint8_t i=0; i<8; i++) {
     write(charmap[i]);
   }
 }
@@ -237,10 +236,10 @@ void Deuligne::home()
 // 3: Left Key
 // 4: Select Key
 
-int Deuligne::get_key(){
-  adc_key_in = analogRead(0);    // read the value from the sensor  
+int8_t Deuligne::get_key(){
+  int adc_key_in = analogRead(0);    // read the value from the sensor  
 
-  int k;
+  int8_t k = 0;
 
   //   determine which key is pressed
   for (k = 0; k < NUM_KEYS; k++)
