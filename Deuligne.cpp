@@ -31,8 +31,7 @@ extern "C" {
 
 static byte dataPlusMask = 0x20; // TODO!!!
 
-static const int   adc_key_val[5] ={
-  50, 190, 400, 540, 770 };
+static const int adc_key_val[NUM_KEYS] = { 50, 190, 400, 540, 770 };
 
 Deuligne::Deuligne( uint8_t devI2CAddress, uint8_t num_lines, uint8_t lcdwidth, uint8_t bufferwidth)  {
   myNumLines = num_lines;
@@ -240,7 +239,7 @@ void Deuligne::home()
 int8_t Deuligne::get_key(){
   int adc_key_in = analogRead(0);    // read the value from the sensor  
 
-  int8_t k;
+  int8_t k = 0;
 
   //   determine which key is pressed
   for (k = 0; k < NUM_KEYS; k++)
