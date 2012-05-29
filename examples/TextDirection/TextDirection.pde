@@ -37,7 +37,7 @@
 // initialize the library with the numbers of the interface pins
 Deuligne lcd;
 
-int thisChar = 'a';
+char thisChar = 'a';
 
 void setup() {
   Wire.begin();
@@ -67,7 +67,7 @@ void loop() {
     thisChar = 'a';
   }
   // print the character
-  lcd.print(thisChar, BYTE);
+  lcd.write(thisChar);
   // wait a second:
   delay(1000);
   // increment the letter:
