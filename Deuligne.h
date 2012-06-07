@@ -70,7 +70,7 @@
 
 class Deuligne : public Print {
 public:
-  Deuligne(int devI2CAddress=0xA7, int num_lines=2, int lcdwidth=16, int bufferwidth= 40);
+  Deuligne(uint8_t devI2CAddress=0xA7, uint8_t num_lines=2, uint8_t lcdwidth=16, uint8_t bufferwidth= 40);
   void commandWrite(int command);
   void init();
   void clear();
@@ -115,7 +115,7 @@ public:
   void autoscroll();
   void noAutoscroll();
 
-  int get_key();
+  int8_t get_key();
 
 private:
   //void pulseEnablePin();
@@ -123,15 +123,11 @@ private:
   //void pushByte(int value);
 
 
-  int myNumLines;
-  int myWidth;
-  int myAddress;
-  int myBufferwidth;
-  int adc_key_in;
-  //  int adc_key_val[5];
-  int NUM_KEYS;
+  uint8_t myNumLines;
+  uint8_t myWidth;
+  uint8_t myAddress;
+  uint8_t myBufferwidth;
 
-  uint8_t _displayfunction;
   uint8_t _displaycontrol;
   uint8_t _displaymode;
 
