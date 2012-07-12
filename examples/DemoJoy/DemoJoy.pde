@@ -10,18 +10,15 @@
 #include <Wire.h> // I2C library include
 #include <Deuligne.h> // LCD library include
 
-Deuligne lcd; // lcd object declaration
+static Deuligne lcd; // lcd object declaration
 
 //Key message
-char msgs[5][15] = {
+static const char msgs[5][15] = {
   "Right Key OK ", 
   "Up Key OK    ", 
   "Down Key OK  ", 
   "Left Key OK  ", 
   "Select Key OK" };
-int key=-1;
-int oldkey=-1;
-
 
 void setup()
 {
@@ -42,9 +39,8 @@ void setup()
 }
 
 void loop() {
-
-
-  key = lcd.get_key();		        // read the value from the sensor & convert into key press
+  static int8_t oldkey = -1;
+  int8_t key = lcd.get_key();		        // read the value from the sensor & convert into key press
 
   if (key != oldkey)				    // if keypress is detected
   {
