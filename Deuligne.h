@@ -16,11 +16,14 @@
 #define SNOOT_WIREWRITE Wire.send
 #endif
 
+#if ! defined(HANDLE_UTF8_CHAR)
+#define HANDLE_UTF8_CHAR 1
+#endif
 
 
 #include <inttypes.h>
 #include <Print.h>
-
+#include <Wire.h>
 
 // commands
 #define LCD_CLEARDISPLAY 0x01
@@ -65,8 +68,35 @@
 #define CPU_FREQ 16000000L // (...) - a discuter, car fonction vitesse clock cpu
 #define TWI_FREQ_MCP23008 400000L
 
-// IMPORTANT! Wire. must have a begin() before calling init()
 
+#if HANDLE_UTF8_CHAR >= 1
+typedef struct {
+	uint8_t chr[4];
+	uint8_t display[8];
+} widechar_t;
+
+static const widechar_t widechars[] =
+{
+	{ "é" , { 0b00010, 0b00100, 0b01110, 0b10001, 0b11111, 0b10000, 0b01110, 0b00000}},
+	{ "è" , { 0b01000, 0b00100, 0b01110, 0b10001, 0b11111, 0b10000, 0b01110, 0b00000}},
+	{ "ê" , { 0b00100, 0b01010, 0b01110, 0b10001, 0b11111, 0b10000, 0b01110, 0b00000}},
+	{ "ë" , { 0b01010, 0b00000, 0b01110, 0b10001, 0b11111, 0b10000, 0b01110, 0b00000}},
+	{ "à" , { 0b01000, 0b00100, 0b01110, 0b00001, 0b01111, 0b10001, 0b01111, 0b00000}},
+	{ "â" , { 0b00100, 0b01010, 0b01110, 0b00001, 0b01111, 0b10001, 0b01111, 0b00000}},
+	{ "ù" , { 0b01000, 0b00100, 0b10001, 0b10001, 0b10001, 0b10011, 0b01101, 0b00000}},
+	{ "û" , { 0b00100, 0b01010, 0b10001, 0b10001, 0b10001, 0b10011, 0b01101, 0b00000}},
+	{ "ç" , { 0b01110, 0b10000, 0b10000, 0b10001, 0b01110, 0b00100, 0b01000, 0b00000}},
+	{ "ô" , { 0b00100, 0b01010, 0b01110, 0b10001, 0b10001, 0b10001, 0b01110, 0b00000}},
+	{ "î" , { 0b00100, 0b01010, 0b00000, 0b01100, 0b00100, 0b00100, 0b01110, 0b00000}},
+	{ "ï" , { 0b01010, 0b00000, 0b01100, 0b00100, 0b00100, 0b00100, 0b01110, 0b00000}},
+	{ "£" , { 0b00110, 0b01000, 0b01000, 0b11110, 0b01000, 0b01001, 0b10110, 0b00000}},
+	{ "€" , { 0b00110, 0b01001, 0b11100, 0b01000, 0b11100, 0b01001, 0b00110, 0b00000}},
+	{ "µ" , { 0b00000, 0b00000, 0b00000, 0b10001, 0b10001, 0b11001, 0b10110, 0b10000}},
+	{ "œ" , { 0b00000, 0b00000, 0b01010, 0b10101, 0b10111, 0b10100, 0b01011, 0b00000}},
+
+	/* Please complete with the UTF-8 chars you need */
+};
+#endif
 
 class Deuligne : public Print {
 public:
@@ -97,7 +127,7 @@ public:
   /**
    * from LiquidCrystal (official arduino) Library
    ***/
-  void createChar(uint8_t, uint8_t[]);
+  void createChar(uint8_t,const uint8_t[]);
   void command(uint8_t);
 
   void home();
@@ -121,7 +151,12 @@ private:
   //void pulseEnablePin();
   //void pushNibble(int nibble);
   //void pushByte(int value);
+ #if HANDLE_UTF8_CHAR >= 1
+  void loadAndPrintExtendedChar(uint8_t value);
+  void handle_utf8(uint8_t value);
+#endif
 
+  uint8_t last_ddramaddr;
 
   uint8_t myNumLines;
   uint8_t myWidth;
@@ -130,6 +165,7 @@ private:
 
   uint8_t _displaycontrol;
   uint8_t _displaymode;
+  uint8_t utf_hi_char;
 
 
 };
